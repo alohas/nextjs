@@ -13,6 +13,12 @@ const theme = {
   styles: {
     ...swiss.styles,
   },
+  cards: {
+    primary: {
+      padding: 2,
+      borderRadius: 4,
+    },
+  },
 };
 
 export default theme;

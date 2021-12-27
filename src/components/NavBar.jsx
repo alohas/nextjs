@@ -1,23 +1,35 @@
 /** @jsxImportSource theme-ui */
 import Link from "next/link";
 
-const NavBar = () => (
-  <header
-    sx={{
-      width: "100%",
-      bg: "primary",
-    }}
-  >
-    <nav sx={{ variant: "styles.Container", mx: "auto" }}>
-      <Link href="/" as={`/`}>
-        <a sx={{ fontWeight: "bold", fontSize: 4, cursor: "pointer" }}>Home</a>
-      </Link>
+const NavBar = () => {
+  const navItemStyles = {
+    color: "text",
+    fontSize: 3,
+    cursor: "pointer",
+    fontSize: "",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  };
 
-      <Link href="/notes" as={`/notes`}>
-        <a sx={{ color: "text", fontSize: 3, cursor: "pointer" }}>Notes</a>
-      </Link>
-    </nav>
-  </header>
-);
+  return (
+    <header
+      sx={{
+        width: "100%",
+        bg: "primary",
+      }}
+    >
+      <nav sx={{ variant: "styles.Container", mx: "auto" }}>
+        <Link href="/" as={`/`}>
+          <a sx={{ ...navItemStyles, pr: 4 }}>HOME</a>
+        </Link>
+
+        <Link href="/notes" as={`/notes`}>
+          <a sx={navItemStyles}>NOTES</a>
+        </Link>
+      </nav>
+    </header>
+  );
+};
 
 export default NavBar;
