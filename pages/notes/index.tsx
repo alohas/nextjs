@@ -1,20 +1,24 @@
-/** @jsxImportSource theme-ui */
 import { useRouter } from "next/router";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Grid, Alert } from "theme-ui";
 
-import Note from "../../src/components/Note";
+import NoteCard from "../../src/components/Note";
 import NoteForm from "../../src/components/NoteForm";
+import { Note, NoteFormValues } from "../../src/utils/types";
 
-const Page = ({ notes }) => {
+interface Props {
+  notes: Note[];
+}
+
+const Page: React.FC<Props> = ({ notes }) => {
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState<null | string>(null);
 
   const refreshData = () => {
     router.replace(router.asPath);
   };
 
-  const submitFormData = async (values) => {
+  const submitFormData = async (values: NoteFormValues) => {
     const res = await fetch(`http://localhost:3000/api/note/`, {
       method: "POST",
       body: JSON.stringify(values),
@@ -37,7 +41,7 @@ const Page = ({ notes }) => {
       <h2>Your notes:</h2>
       <Grid gap={2} columns={[1, 2, 3, 4]}>
         {notes.map((note) => (
-          <Note key={note.id} {...note} />
+          <NoteCard key={note.id} {...note} />
         ))}
       </Grid>
     </div>

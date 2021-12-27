@@ -6,7 +6,6 @@ const NavBar = () => {
     color: "text",
     fontSize: 3,
     cursor: "pointer",
-    fontSize: "",
     "&:hover": {
       textDecoration: "underline",
     },

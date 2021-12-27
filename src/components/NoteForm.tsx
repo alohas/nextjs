@@ -1,9 +1,14 @@
-/** @jsxImportSource theme-ui */
-import { Box, Button, Input, Label } from "theme-ui";
+import React from "react";
+import { Button, Input, Label } from "theme-ui";
 import { useFormik } from "formik";
+import { NoteFormValues } from "../utils/types";
 
-const NoteForm = ({ submitForm }) => {
-  const formik = useFormik({
+interface Props {
+  submitForm: (values: NoteFormValues) => Promise<void>;
+}
+
+const NoteForm: React.FC<Props> = ({ submitForm }) => {
+  const { handleSubmit, handleChange, values } = useFormik({
     initialValues: {
       title: "",
     },
@@ -13,20 +18,20 @@ const NoteForm = ({ submitForm }) => {
   });
 
   return (
-    <Box as="form" onSubmit={formik.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <Label htmlFor="title">Title</Label>
       <Input
         name="title"
         id="title"
         mb={3}
-        onChange={formik.handleChange}
-        value={formik.values.title}
+        onChange={handleChange}
+        value={values.title}
       />
 
       {/* <Textarea name="comment" id="comment" rows={6} mb={3} /> */}
 
       <Button type="submit">Submit</Button>
-    </Box>
+    </form>
   );
 };
 

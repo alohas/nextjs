@@ -1,21 +1,23 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import nc from "next-connect";
-import notes from "../../../src/data/data";
+import { Note } from "../../../src/utils/types";
 
-const getNote = (id) => notes.find((note) => note.id === id);
-const getNoteIndex = (id) => notes.findIndex((note) => note.id === id);
+const notes = require("../../../src/data/data");
 
-const notFoundError = () => {
-  res.status(404);
-  res.end();
-  return;
-};
+const getNote = (id: string | string[]) =>
+  notes.find((note: Note) => note.id === id);
 
-const handler = nc()
+const getNoteIndex = (id: string | string[]) =>
+  notes.findIndex((note: Note) => note.id === id);
+
+const handler = nc<NextApiRequest, NextApiResponse>()
   .get((req, res) => {
+    console.log(req.query.id);
     const note = getNote(req.query.id);
-
     if (!note) {
-      notFoundError();
+      res.status(404);
+      res.end();
+      return;
     }
 
     res.json({ data: note });
@@ -29,7 +31,9 @@ const handler = nc()
     const note = getNote(id);
 
     if (!note) {
-      notFoundError();
+      res.status(404);
+      res.end();
+      return;
     }
 
     const i = getNoteIndex(id);
@@ -45,7 +49,9 @@ const handler = nc()
     const note = getNote(id);
 
     if (!note) {
-      notFoundError();
+      res.status(404);
+      res.end();
+      return;
     }
     const i = getNoteIndex(id);
 

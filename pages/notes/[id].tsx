@@ -1,7 +1,13 @@
-/** @jsxImportSource theme-ui */
+import React from "react";
 import { useRouter } from "next/router";
+import { Note } from "../../src/utils/types";
+import { GetServerSideProps } from "next";
 
-const Page = ({ note }) => {
+interface Props {
+  note: Note;
+}
+
+const Page: React.FC<Props> = ({ note }) => {
   const {
     query: { id },
   } = useRouter();
@@ -16,8 +22,8 @@ const Page = ({ note }) => {
 
 export default Page;
 
-export const getServerSideProps = async ({ params }) => {
-  const response = await fetch(`http://localhost:3000/api/note/${params.id}`);
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const response = await fetch(`http://localhost:3000/api/note/${params?.id}`);
 
   if (!response.ok) {
     return {

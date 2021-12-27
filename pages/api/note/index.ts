@@ -1,7 +1,9 @@
 import nc from "next-connect";
-import notes from "../../../src/data/data";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const handler = nc({
+const notes = require("../../../src/data/data");
+
+const handler = nc<NextApiRequest, NextApiResponse>({
   onError: (err, req, res, next) => {
     res.status(500).end("Something broke!");
   },
