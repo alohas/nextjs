@@ -22,7 +22,6 @@ const Page: React.FC<Props> = ({ notes }) => {
     const res = await fetch(`http://localhost:3000/api/note/`, {
       method: "POST",
       body: JSON.stringify(values),
-      // body: values,
     });
     if (res.ok) {
       setErrorMessage(null);

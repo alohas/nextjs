@@ -12,7 +12,6 @@ const getNoteIndex = (id: string | string[]) =>
 
 const handler = nc<NextApiRequest, NextApiResponse>()
   .get((req, res) => {
-    console.log(req.query.id);
     const note = getNote(req.query.id);
     if (!note) {
       res.status(404);
@@ -37,7 +36,7 @@ const handler = nc<NextApiRequest, NextApiResponse>()
     }
 
     const i = getNoteIndex(id);
-    const updated = { ...note, ...body };
+    const updated = { ...note, ...JSON.parse(body) };
 
     notes[i] = updated;
     res.json({ data: updated });
